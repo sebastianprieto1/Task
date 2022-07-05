@@ -90,8 +90,39 @@ window.addEventListener("load", () => {  renderRetrievedTasks();
   };
 
   modalBtnDone.onclick = function () {
+    // 1.) Get the task clicked by the value in the hidden field.
+    const divElement = this.parentNode;
+    const formElement = divElement.parentNode;
+    const hiddenFieldValue = formElement[0].value;
+  
+    // 2.) Find the id of the task inside the Array and change the status.
+    for (let i = 0; i < retrievedArray.length; i++) {
+      if (Number(retrievedArray[i].id) === Number(formElement[0].value)) {
+        retrievedArray[i].newSelectStatus = 'modalDone';
+        break;
+      }
+    }
+  
+    // 3.) Find the id of the task inside the localStorage and change the status.
+    for (let m = 0; m < localStorage.length; m++) {
+      if (localStorage.key(m) === formElement[0].value) {
+        let obj = JSON.parse(localStorage.getItem(localStorage.key(m)));
+        obj.newSelectStatus = 'modalDone';
+        localStorage.setItem(obj.id, JSON.stringify(obj));
+        break;
+      }
+    }
+  
+    // 4.) Close the form.
+    formDelete.style.display = "none";
+    modalOverlay.style.opacity = "1";
+    modalOverlay.style.backgroundColor = "transparent";
+    // console.log('refresh');
+  
+    // 5.) Render the HTML again.
+  
+  
   }
-
   
   //Validating the form fields
 
@@ -221,7 +252,20 @@ retrievedArray.push(x)
     modalOverlay.style.backgroundColor = "gray";
   
     for (let i=0; i < retrievedArray.length; i++) {
-      //here is where we would put our condition if id 
+      //Mark as done button condition if
+
+      if (retrievedArray[i].id === a) {
+        document.getElementById("setStatus").value = retrievedArray[i].newSelectStatus;
+        document.getElementById("hidden-field-id").value = retrievedArray[i].id;
+
+      }
+
+      modalBtnDone.addEventListener('click', () => {
+        // hide button
+        modalBtnDone.style.display = 'none';
+      
+      });
+
     let x = retrievedArray[i];
    
     if( x.id === a )
