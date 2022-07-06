@@ -246,43 +246,48 @@ retrievedArray.push(x)
 // console.log(retrievedArray)
 }
 
-  function renderRetrievedTasks() {
+function editTask(a) {
+  console.log(a)
+  formDelete.style.display = "block";
+  modalOverlay.style.opacity = "0.3";
+  modalOverlay.style.backgroundColor = "gray";
 
+  for (let i=0; i < retrievedArray.length; i++) {
+    //Mark as done button condition if
 
-  function editTask(a) {
-    formDelete.style.display = "block";
-    modalOverlay.style.opacity = "0.3";
-    modalOverlay.style.backgroundColor = "gray";
-  
-    for (let i=0; i < retrievedArray.length; i++) {
-      //Mark as done button condition if
+    if (retrievedArray[i].id === a.id) {
+      document.getElementById("setStatus").value = retrievedArray[i].newSelectStatus;
+      document.getElementById("hidden-field-id").value = retrievedArray[i].id;
 
-      if (retrievedArray[i].id === a) {
-        document.getElementById("setStatus").value = retrievedArray[i].newSelectStatus;
-        document.getElementById("hidden-field-id").value = retrievedArray[i].id;
-
-      }
-
-      modalBtnDone.addEventListener('click', () => {
-        // hide button
-        modalBtnDone.style.display = 'none';
-      
-      });
-
-    let x = retrievedArray[i];
-   
-    if( x.id === a )
-      {
-      taskNameEdit.value = x.newTaskName; //get existing here
-  assignedToEdit.value = x.newAssignTo;  //get existing here
-  dueDateEdit.value = x.newDueDate;
-  setStatusEdit.value = x.newSelectStatus;
-  descriptionEdit.value = x.newAddDescription;
     }
+    console.log(a.newSelectStatus)
+
+    if (a.newSelectStatus === "modalDone"){
+      modalBtnDone.style.display = 'none'
+    } else {
+      modalBtnDone.style.display = 'block'
+    }
+
+    // modalBtnDone.addEventListener('click', (e) => {
+    //   // hide button
+    //   e.target.style.display = 'none';
+    
+    // });
+
+  let x = retrievedArray[i];
+ 
+  if( x.id === a.id )
+    {
+    taskNameEdit.value = x.newTaskName; //get existing here
+assignedToEdit.value = x.newAssignTo;  //get existing here
+dueDateEdit.value = x.newDueDate;
+setStatusEdit.value = x.newSelectStatus;
+descriptionEdit.value = x.newAddDescription;
   }
+}
 
-      } 
-
+    } 
+  function renderRetrievedTasks() {
 
 
     for (let i=0; i < retrievedArray.length; i++) {
@@ -300,7 +305,7 @@ retrievedArray.push(x)
     newDiv.classList.add("card1");
   
     newDiv.addEventListener("click", () => {
-      editTask(x.id), window.scrollTo(0, 0);
+      editTask(x), window.scrollTo(0, 0);
     });
     newDiv.innerHTML = card;
 
@@ -316,7 +321,7 @@ retrievedArray.push(x)
     cardsToDo.insertAdjacentElement("beforeend", newDiv);
     newDiv.classList.add("card1");
     newDiv.addEventListener("click", () => {
-      editTask(x.id), window.scrollTo(0, 0);
+      editTask(x), window.scrollTo(0, 0);
     });
     newDiv.innerHTML = card;
 
@@ -331,8 +336,9 @@ retrievedArray.push(x)
     const newDiv = document.createElement("div");
     cardsDone.insertAdjacentElement("beforeend", newDiv);
     newDiv.classList.add("card1");
-    newDiv.addEventListener("click", () => {
-      editTask(x.id), window.scrollTo(0, 0);
+    newDiv.addEventListener("click", (e) => {
+      console.log(e.target)
+      editTask(x), window.scrollTo(0, 0);
     });
     newDiv.innerHTML = card;
 
@@ -348,13 +354,8 @@ retrievedArray.push(x)
     cardsinProgress.insertAdjacentElement("beforeend", newDiv);
     newDiv.classList.add("card1");
     newDiv.addEventListener("click", () => {
-      editTask(x.id), window.scrollTo(0, 0);
+      editTask(x), window.scrollTo(0, 0);
     });
     newDiv.innerHTML = card;
       }
-    }
-
- 
-  }
-
-
+    }}
