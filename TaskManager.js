@@ -37,6 +37,9 @@ class TaskManager {
       <img class= "profileCard" src="./Resources/ProfileUser1.png"> 
       <hr> 
       <p class="dueDateText"><strong>DUE:</strong><span>${dueDate.value}</span></p>
+      <style>
+      #modalBtnDone {display: none;}
+      </style>
       </div>`
       
       console.log(card);

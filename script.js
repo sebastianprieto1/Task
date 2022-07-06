@@ -91,13 +91,16 @@ window.addEventListener("load", () => {  renderRetrievedTasks();
 
   modalBtnDone.onclick = function () {
     // 1.) Get the task clicked by the value in the hidden field.
+    modalBtnDone.style.display = "none";
     const divElement = this.parentNode;
     const formElement = divElement.parentNode;
     const hiddenFieldValue = formElement[0].value;
-  
+
     // 2.) Find the id of the task inside the Array and change the status.
     for (let i = 0; i < retrievedArray.length; i++) {
       if (Number(retrievedArray[i].id) === Number(formElement[0].value)) {
+        modalBtnDone.style.display = "none";
+
         retrievedArray[i].newSelectStatus = 'modalDone';
         break;
       }
